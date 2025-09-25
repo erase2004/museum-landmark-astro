@@ -2,3 +2,108 @@
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../../node_modules/flowbite";
+
+picture > img {
+  image-rendering: optimizequality;
+}
+
+@layer components {
+  .accordion-header {
+    @apply flex justify-between items-center p-1.5 w-full font-medium text-left text-gray-400 border-gray-700;
+  }
+
+  .accordion-content {
+    @apply border-gray-700 bg-gray-900;
+  }
+
+  .accordion-link {
+    @apply block p-2 border-b border-gray-700 text-sm text-gray-400 hover:bg-gray-700 hover:text-white;
+  }
+
+  .dropdown-button {
+    @apply flex justify-between items-center px-0.5 py-2 w-auto;
+    @apply font-medium border-0  text-gray-400 hover:text-white focus:text-white hover:bg-gray-700;
+  }
+
+  .dropdown-menu {
+    @apply hidden w-auto bg-gray-900 rounded-b divide-y divide-gray-100 -mt-3!;
+  }
+
+  .dropdown-link-group {
+    @apply bg-gray-900 py-1 text-sm text-gray-200;
+  }
+
+  .dropdown-link {
+    @apply block p-2 text-gray-400 hover:bg-gray-700 hover:text-white;
+  }
+
+  .link-disabled {
+    @apply text-gray-600 hover:bg-transparent hover:text-gray-600;
+  }
+
+  a.media-item .loading-effect {
+    width: 200px;
+    height: 60px;
+
+    @apply hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  a.media-item.loading .loading-effect {
+    @apply block;
+  }
+
+  .circle {
+    left: 15%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform-origin: 50%;
+
+    @apply absolute bg-white;
+  }
+
+  .circle:nth-child(2) {
+    left: 45%;
+    animation-delay: 0.2s;
+  }
+
+  .circle:nth-child(3) {
+    right: 15%;
+    animation-delay: 0.3s;
+
+    @apply left-auto;
+  }
+
+  .shadow {
+    width: 20px;
+    height: 4px;
+    border-radius: 50%;
+    top: 62px;
+    left: 15%;
+    transform-origin: 50%;
+    z-index: -1;
+    transform: blur(1px);
+
+    @apply absolute bg-black opacity-50;
+  }
+
+  .shadow:nth-child(4) {
+    left: 45%;
+    animation-delay: 0.2s;
+  }
+
+  .shadow:nth-child(5) {
+    right: 15%;
+    animation-delay: 0.3s;
+
+    @apply left-auto;
+  }
+
+  .loading-effect span {
+    top: 75px;
+    left: 15%;
+    letter-spacing: 12px;
+
+    @apply absolute text-xl text-white;
+  }
+}

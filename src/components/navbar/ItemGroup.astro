@@ -1,0 +1,104 @@
+---
+import type { SiteList } from '../../types'
+import ItemMobile from './ItemMobile.astro'
+import Item from './Item.astro'
+
+type Props = {
+  year: keyof SiteList
+  list: SiteList[keyof SiteList]
+}
+
+const { year, list } = Astro.props
+---
+
+<li>
+  <div id="accordion-container" class="block md:hidden">
+    <button
+      type="button"
+      class="accordion-header GTM-toggle-item"
+      data-accordion-target={`#accordion-collapse-body-${year}`}
+      aria-expanded="true"
+      aria-controls={`accordion-collapse-body-${year}`}
+    >
+      <span>{year}</span>
+      <svg
+        data-accordion-icon
+        class="h-6 w-6 shrink-0"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path
+          fill-rule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clip-rule="evenodd"></path></svg
+      >
+    </button>
+    <div
+      id={`accordion-collapse-body-${year}`}
+      class="hidden"
+      aria-labelledby={`accordion-collapse-heading-${year}`}
+    >
+      <div class="accordion-content">
+        <ul class="flex flex-col">
+          {list.map((site) => <ItemMobile site={site} />)}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block">
+    <button data-dropdown-toggle={`dropdown-${year}`} class="dropdown-button GTM-toggle-item">
+      {year}
+      <svg
+        class="ml-1 h-4 w-4"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path
+          fill-rule="evenodd"
+          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+          clip-rule="evenodd"></path></svg
+      >
+    </button>
+    <!-- Dropdown menu -->
+    <div id={`dropdown-${year}`} class="dropdown-menu">
+      <ul class="dropdown-link-group" aria-labelledby={`dropdown-${year}`}>
+        {list.map((site) => <Item site={site} />)}
+      </ul>
+    </div>
+  </div>
+</li>
+
+<script>
+  import type { AccordionItem, AccordionOptions } from 'flowbite'
+  import { Accordion } from 'flowbite'
+  import siteList from '../../data/siteList'
+
+  const accordionEl = document.querySelector<HTMLElement>('#accordion-container')
+
+  const accordionItems: AccordionItem[] = Object.keys(siteList).map((year) => ({
+    id: `accordion-${year}`,
+    triggerEl: document.querySelector<HTMLElement>(
+      `[data-accordion-target="#accordion-collapse-body-${year}"]`
+    )!,
+    targetEl: document.querySelector<HTMLElement>(`#accordion-collapse-body-${year}`)!,
+    active: false,
+  }))
+
+  const options: AccordionOptions = {
+    alwaysOpen: false,
+    activeClasses: 'bg-gray-800 text-white',
+    inactiveClasses: 'text-gray-400',
+    onOpen: (_, item) => {
+      console.log(item)
+      const { triggerEl } = item
+      triggerEl.querySelector('[data-accordion-icon]')?.classList.toggle('rotate-180')
+    },
+    onClose: (_, item) => {
+      const { triggerEl } = item
+      triggerEl.querySelector('[data-accordion-icon]')?.classList.toggle('rotate-180')
+    },
+    onToggle: (_, item) => {},
+  }
+
+  new Accordion(accordionEl, accordionItems, options)
+</script>

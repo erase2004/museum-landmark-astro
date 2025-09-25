@@ -1,0 +1,23 @@
+---
+import type { Site } from '../../types'
+
+type Props = {
+  site: Site
+}
+
+const { site } = Astro.props
+---
+
+<li>
+  {
+    site.disabled ? (
+      <a href="javascript:void(0)" class="accordion-link link-disabled" rel="noopener">
+        {site.title}
+      </a>
+    ) : (
+      <a href={site.url} class="accordion-link GTM-site-link" target="_blank" rel="noopener">
+        {site.title}
+      </a>
+    )
+  }
+</li>
