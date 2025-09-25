@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "museum-landmark-astro",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -14,6 +14,12 @@
     "@types/canvas-confetti": "^1.9.0",
     "astro": "^5.13.11",
     "canvas-confetti": "^1.9.3",
+    "flowbite": "^3.1.2",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.14"
   }
 }
