@@ -1,0 +1,33 @@
+---
+import type { Data } from '../../types'
+import { mediaBasePath } from '../../config'
+import Image from './Image.astro'
+// import Loading from './Loading.astro'
+
+type Props = {
+  isLatestPeriod: boolean
+  index: number
+  data: Data
+}
+
+const { isLatestPeriod, index, data } = Astro.props
+
+const customClasses =
+  index === 0
+    ? ' border-yellow-500 GTM-first-item'
+    : index === 1
+      ? 'border-neutral-500 GTM-second-item'
+      : 'border-lime-800 GTM-third-item'
+
+const filePath = `${mediaBasePath}/${data.name}.${data.ext}`
+---
+
+<a
+  class={`media-item loading relative block rounded-md border-8 border-solid ${customClasses}`}
+  href={data.url}
+  target="_blank"
+  rel="noopener"
+  title={data.companyName}
+>
+  {!data.isVideo && <Image isLatestPeriod={isLatestPeriod} data={data} filePath={filePath} />}
+</a>

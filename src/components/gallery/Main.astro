@@ -1,0 +1,12 @@
+---
+import * as dataList from '../../data/imageList'
+import Period from './Period.astro'
+---
+
+<div class="mt-10 md:px-4">
+  {
+    Object.entries(dataList)
+      .reverse()
+      .map(([period, list], index) => <Period period={period} list={list} isLatest={index === 0} />)
+  }
+</div>

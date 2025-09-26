@@ -1,0 +1,53 @@
+---
+import type { ImageMetadata } from 'astro'
+import type { Data } from '../../types'
+import Loading from './Loading.astro'
+import { Image as AstroImage } from 'astro:assets'
+import { mediaBasePath } from '../../config'
+
+type Props = {
+  filePath: string
+  isLatestPeriod: boolean
+  data: Data
+}
+
+const { filePath, isLatestPeriod, data } = Astro.props
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/media/*.{jpeg,jpg,png,gif}'
+)
+if (!images[filePath])
+  throw new Error(`"${filePath}" does not exist in glob: "${mediaBasePath}*.{jpeg,jpg,png,gif}"`)
+---
+
+<AstroImage
+  src={images[filePath]()}
+  alt={data.companyName}
+  class="h-auto w-full"
+  style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
+  layout="constrained"
+  loading={isLatestPeriod ? 'eager' : 'lazy'}
+  priority={isLatestPeriod}
+/>
+<Loading />
+
+<script>
+  function getLazyLoadImages() {
+    return document.querySelectorAll<HTMLImageElement>('a.media-item > img')
+  }
+
+  function checkImageLoadStatus() {
+    for (let imgElement of getLazyLoadImages()) {
+      if (imgElement.complete && imgElement.naturalHeight !== 0) {
+        mediaLoadedHandle.call(imgElement)
+      } else {
+        imgElement.addEventListener('load', mediaLoadedHandle)
+      }
+    }
+  }
+
+  function mediaLoadedHandle(this: HTMLElement) {
+    this.parentNode?.querySelector('.loading-effect')?.remove()
+  }
+
+  checkImageLoadStatus()
+</script>

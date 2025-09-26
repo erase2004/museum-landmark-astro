@@ -59,7 +59,7 @@ picture > img {
     border-radius: 50%;
     transform-origin: 50%;
 
-    @apply absolute bg-white;
+    @apply absolute bg-white animate-circle-bumping;
   }
 
   .circle:nth-child(2) {
@@ -84,7 +84,7 @@ picture > img {
     z-index: -1;
     transform: blur(1px);
 
-    @apply absolute bg-black opacity-50;
+    @apply absolute bg-black opacity-50 animate-shadow-transform;
   }
 
   .shadow:nth-child(4) {
@@ -105,5 +105,41 @@ picture > img {
     letter-spacing: 12px;
 
     @apply absolute text-xl text-white;
+  }
+}
+
+@theme {
+  --animate-circle-bumping: circle-bumping 0.5s alternate infinite ease;
+  --animate-shadow-transform: shadow-transform 0.5s alternate infinite ease;
+
+  @keyframes circle-bumping {
+    0% {
+      top: 60px;
+      height: 5px;
+      border-radius: 50px 50px 25px 25px;
+      transform: scale(1.7);
+    }
+    40% {
+      height: 20px;
+      border-radius: 50%;
+      transform: scale(1);
+    }
+    100% {
+      top: 0%;
+    }
+  }
+
+  @keyframes shadow-transform {
+    0% {
+      transform: scale(1.5);
+    }
+    40% {
+      transform: scale(1.5);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(0.2);
+      opacity: 0.4;
+    }
   }
 }

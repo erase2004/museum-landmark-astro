@@ -1,0 +1,18 @@
+---
+import type { Data } from '../../types'
+import ItemWrapper from './ItemWrapper.astro'
+
+type Props = {
+  period: string
+  list: Data[]
+  isLatest: boolean
+}
+
+const { period, list, isLatest } = Astro.props
+const pd = Number(period)
+---
+
+<div class="py-2 text-center text-xl text-gray-300">
+  {Math.floor(pd / 100)} 年 {pd % 100} 期
+</div>
+{list.map((data, index) => <ItemWrapper isLatestPeriod={isLatest} data={data} index={index} />)}
