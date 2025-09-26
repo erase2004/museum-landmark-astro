@@ -11,7 +11,7 @@ const { site } = Astro.props
 <li>
   {
     site.disabled ? (
-      <a href="javascript:void(0)" class="accordion-link link-disabled" rel="noopener">
+      <a href="#" class="accordion-link link-disabled" rel="noopener" onclick="return false">
         {site.title}
       </a>
     ) : (
