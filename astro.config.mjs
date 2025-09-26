@@ -4,16 +4,14 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 import favicons from 'astro-favicons';
-import { title } from './src/config';
+import { siteUrl, title } from './src/config';
 
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  site: "https://museum.acgn-stock.com",
-
+  site: siteUrl,
   image: {
     responsiveStyles: true
   },

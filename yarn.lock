@@ -1068,6 +1068,11 @@ astro-favicons@^3.1.5:
     favilib "^1.0.5"
     ultrahtml "^1.5.3"
 
+astro-seo-meta@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/astro-seo-meta/-/astro-seo-meta-5.2.0.tgz#e0f8702ea8f1db902ed3259f1015d493c3bb4ad6"
+  integrity sha512-VVSll8MJzco/5hFMuFtLIL4OzxJh1RVbJ3A5k11fcI0/mMenvaB6YsYd83EzQoBr7nKbnRfJsZ5actH0uTROhQ==
+
 astro@^5.13.11:
   version "5.13.11"
   resolved "https://registry.yarnpkg.com/astro/-/astro-5.13.11.tgz#c2556af8bf91e500ea041da3d192a99e29ff4d44"

@@ -1,9 +1,10 @@
 ---
 import '../styles/global.css'
-import { title } from '../config'
+import { title, description } from '../config'
 import Metadata from '../components/Metadata.astro'
 import Navbar from '../components/navbar/Main.astro'
 import Gallery from '../components/gallery/Main.astro'
+import { Seo } from 'astro-seo-meta'
 ---
 
 <html lang="zh-TW">
@@ -12,8 +13,7 @@ import Gallery from '../components/gallery/Main.astro'
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content="Landmark page for the Museums of ACGN Stock Market" />
-    <title>{title}</title>
+    <Seo title={title} description={description} keywords={['ACGN', '股市', '博物館']} />
     <Metadata />
   </head>
 
