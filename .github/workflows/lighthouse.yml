@@ -1,0 +1,35 @@
+name: Lighthouse CI
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  lhci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies and build
+        run: |
+          yarn install
+          yarn build
+          yarn global add @lhci/cli@0.15.x
+      - name: Run Lighthouse CI (mobile)
+        run: |
+          lhci autorun --config=./lighthouserc-mobile.yml
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Run Lighthouse CI (desktop)
+        run: |
+          lhci autorun --config=./lighthouserc-desktop.yml
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Create artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-result
+          path: ./dist
