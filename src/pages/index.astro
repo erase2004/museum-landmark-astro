@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import { title } from '../config'
+import Metadata from '../components/Metadata.astro'
 import Navbar from '../components/navbar/Main.astro'
 import Gallery from '../components/gallery/Main.astro'
 ---
@@ -13,6 +14,7 @@ import Gallery from '../components/gallery/Main.astro'
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content="Landmark page for the Museums of ACGN Stock Market" />
     <title>{title}</title>
+    <Metadata />
   </head>
 
   <body class="flex flex-col flex-nowrap bg-orange-800">

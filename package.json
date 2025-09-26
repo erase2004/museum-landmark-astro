@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@types/canvas-confetti": "^1.9.0",
     "astro": "^5.13.11",
+    "astro-favicons": "^3.1.5",
     "canvas-confetti": "^1.9.3",
     "flowbite": "^3.1.2",
     "tailwindcss": "^4.1.13"
