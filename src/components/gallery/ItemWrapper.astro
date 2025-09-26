@@ -31,6 +31,9 @@ const filePath = data.isVideo
   rel="noopener"
   title={data.companyName}
 >
+  <span class="absolute top-0 right-0 bg-black/50 p-1 text-xl text-white lg:text-2xl"
+    >{data.companyName}</span
+  >
   {
     data.isVideo ? (
       <Video isLatestPeriod={isLatestPeriod} data={data} filePath={filePath} />
