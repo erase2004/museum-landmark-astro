@@ -1,0 +1,12 @@
+ci:
+  collect:
+    numberOfRuns: 5
+  assert:
+    assertions:
+      categories:performance:
+        - warn
+        - minScore: 0.9
+          aggregationMethod: optimistic
+      categories:pwd: 'off'
+  upload:
+    target: temporary-public-storage
