@@ -1,0 +1,120 @@
+---
+import type { Data } from '../../types'
+import Loading from './Loading.astro'
+import { mediaBasePath } from '../../config'
+import videoPoster from '../../assets/media/video-poster.jpg'
+
+type Props = {
+  filePath: string
+  isLatestPeriod: boolean
+  data: Data
+}
+
+const { filePath, isLatestPeriod, data } = Astro.props
+const videos = import.meta.glob('/src/assets/media/*.{mp4,webm}')
+
+function getVideoEntries(path: string) {
+  return Object.entries(videos).filter(([key, _]) => key.includes(path))
+}
+
+const entries = getVideoEntries(filePath)
+
+if (entries.length === 0)
+  throw new Error(`"${filePath}" does not exist in glob: "${mediaBasePath}*.{mp4,webm}"`)
+
+// as { default: string } is workaround for video files
+const mp4 = (await entries
+  .filter(([key, _]) => key.endsWith('.mp4'))
+  .map(([_, file]) => file)[0]()) as { default: string }
+const webm = (await entries
+  .filter(([key, _]) => key.endsWith('.webm'))
+  .map(([_, file]) => file)[0]()) as { default: string }
+
+const customClass = isLatestPeriod ? '' : 'loading'
+---
+
+<video
+  class={`w-full ${customClass}`}
+  style={`background-color: ${data.color}`}
+  autoplay
+  muted
+  loop
+  width={data.width}
+  height={data.height}
+  poster={videoPoster.src}
+  preload="none"
+>
+  {
+    isLatestPeriod ? (
+      <Fragment>
+        <source type="video/webm" src={webm.default} />
+        <source type="video/mp4" src={mp4.default} />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <source type="video/webm" data-src={webm.default} />
+        <source type="video/mp4" data-src={mp4.default} />
+      </Fragment>
+    )
+  }
+
+  <Loading />
+</video>
+
+<script>
+  import { mediaLoadedHandle } from '../../util'
+
+  function getLazyLoadVideos() {
+    return document.querySelectorAll<HTMLVideoElement>('a.media-item > video')
+  }
+
+  function checkVideoLoadStatus() {
+    for (const videoElement of getLazyLoadVideos()) {
+      /** HAVE_ENOUGH_DATA, ref: https://developer.mozilla.org/zh-TW/docs/Web/API/HTMLMediaElement/readyState */
+      if (videoElement.readyState === 4) {
+        mediaLoadedHandle.call(videoElement)
+      } else {
+        videoElement.addEventListener('canplaythrough', mediaLoadedHandle)
+      }
+    }
+  }
+
+  let lazyloadThrottleTimeout: number
+
+  function lazyloadVideo() {
+    if (lazyloadThrottleTimeout) {
+      window.clearTimeout(lazyloadThrottleTimeout)
+    }
+
+    lazyloadThrottleTimeout = window.setTimeout(function () {
+      const scrollTop = window.scrollY
+      let waitingVideoes: number = 0
+
+      for (const videoElement of getLazyLoadVideos()) {
+        if (videoElement.classList.contains('loading')) {
+          waitingVideoes += 1
+
+          const parent = videoElement.closest<HTMLAnchorElement>('a.media-item')
+          if (parent && parent.offsetTop < window.innerHeight + scrollTop + 700) {
+            videoElement.querySelectorAll('source').forEach((element) => {
+              element.src = element.dataset.src ?? ''
+            })
+            videoElement.classList.remove('loading')
+            setTimeout(() => videoElement.load(), 0)
+          }
+        }
+      }
+
+      if (waitingVideoes === 0) {
+        document.removeEventListener('scroll', lazyloadVideo)
+        window.removeEventListener('resize', lazyloadVideo)
+        window.removeEventListener('orientationChange', lazyloadVideo)
+      }
+    }, 20)
+  }
+
+  document.addEventListener('scroll', lazyloadVideo)
+  window.addEventListener('resize', lazyloadVideo)
+  window.addEventListener('orientationChange', lazyloadVideo)
+  checkVideoLoadStatus()
+</script>

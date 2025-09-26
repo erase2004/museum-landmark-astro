@@ -31,22 +31,20 @@ if (!images[filePath])
 <Loading />
 
 <script>
+  import { mediaLoadedHandle } from '../../util'
+
   function getLazyLoadImages() {
     return document.querySelectorAll<HTMLImageElement>('a.media-item > img')
   }
 
   function checkImageLoadStatus() {
-    for (let imgElement of getLazyLoadImages()) {
+    for (const imgElement of getLazyLoadImages()) {
       if (imgElement.complete && imgElement.naturalHeight !== 0) {
         mediaLoadedHandle.call(imgElement)
       } else {
         imgElement.addEventListener('load', mediaLoadedHandle)
       }
     }
-  }
-
-  function mediaLoadedHandle(this: HTMLElement) {
-    this.parentNode?.querySelector('.loading-effect')?.remove()
   }
 
   checkImageLoadStatus()

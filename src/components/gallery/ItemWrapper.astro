@@ -2,7 +2,7 @@
 import type { Data } from '../../types'
 import { mediaBasePath } from '../../config'
 import Image from './Image.astro'
-// import Loading from './Loading.astro'
+import Video from './Video.astro'
 
 type Props = {
   isLatestPeriod: boolean
@@ -19,7 +19,9 @@ const customClasses =
       ? 'border-neutral-500 GTM-second-item'
       : 'border-lime-800 GTM-third-item'
 
-const filePath = `${mediaBasePath}/${data.name}.${data.ext}`
+const filePath = data.isVideo
+  ? `${mediaBasePath}/${data.name}`
+  : `${mediaBasePath}/${data.name}.${data.ext}`
 ---
 
 <a
@@ -29,5 +31,11 @@ const filePath = `${mediaBasePath}/${data.name}.${data.ext}`
   rel="noopener"
   title={data.companyName}
 >
-  {!data.isVideo && <Image isLatestPeriod={isLatestPeriod} data={data} filePath={filePath} />}
+  {
+    data.isVideo ? (
+      <Video isLatestPeriod={isLatestPeriod} data={data} filePath={filePath} />
+    ) : (
+      <Image isLatestPeriod={isLatestPeriod} data={data} filePath={filePath} />
+    )
+  }
 </a>
