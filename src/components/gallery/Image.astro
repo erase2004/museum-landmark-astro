@@ -25,6 +25,7 @@ if (!images[filePath])
   class="h-auto w-full"
   style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
   layout="constrained"
+  quality={50}
   loading={isLatestPeriod ? 'eager' : 'lazy'}
   priority={isLatestPeriod}
 />

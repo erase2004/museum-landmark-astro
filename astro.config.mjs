@@ -15,7 +15,7 @@ export default defineConfig({
   },
   site: siteUrl,
   image: {
-    responsiveStyles: true
+    responsiveStyles: true,
   },
   integrations: [
 		favicons({
