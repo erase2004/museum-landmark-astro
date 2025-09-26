@@ -15,21 +15,34 @@ import { Seo } from 'astro-seo-meta'
     <meta name="generator" content={Astro.generator} />
     <Seo title={title} description={description} keywords={['ACGN', '股市', '博物館']} />
     <Metadata />
-    <!-- ref: https://partytown.qwik.dev/google-tag-manager/ -->
-    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=GTM-5672XXTG"
-    ></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || []
-      window.gtag = function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-
-      gtag('config', 'GTM-5672XXTG')
+    <!-- Google Tag Manager -->
+    <script>
+      ;(function (w, d, s, l, i) {
+        w[l] = w[l] || []
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : ''
+        j.async = true
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+        f.parentNode.insertBefore(j, f)
+      })(window, document, 'script', 'dataLayer', 'GTM-5672XXTG')
     </script>
+    <!-- End Google Tag Manager -->
   </head>
 
   <body class="flex flex-col flex-nowrap bg-orange-800">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5672XXTG"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      >
+      </iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <Navbar />
     <Gallery />
   </body>

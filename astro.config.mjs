@@ -6,8 +6,6 @@ import { defineConfig } from 'astro/config';
 import favicons from 'astro-favicons';
 import { siteUrl, title } from './src/config';
 
-import partytown from '@astrojs/partytown';
-
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -40,6 +38,5 @@ export default defineConfig({
 				html: true,
 			},
 		}),
-		partytown()
 	]
 });

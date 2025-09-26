@@ -58,14 +58,6 @@
     unist-util-visit "^5.0.0"
     vfile "^6.0.3"
 
-"@astrojs/partytown@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@astrojs/partytown/-/partytown-2.1.4.tgz#7eedf25a84f59602eb4392dcab16b79c2d65f560"
-  integrity sha512-loUrAu0cGYFDC6dHVRiomdsBJ41VjDYXPA+B3Br51V5hENFgDSOLju86OIj1TvBACcsB22UQV7BlppODDG5gig==
-  dependencies:
-    "@qwik.dev/partytown" "^0.11.0"
-    mrmime "^2.0.1"
-
 "@astrojs/prism@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@astrojs/prism/-/prism-3.3.0.tgz#5888fcd5665d416450a4fe55b1b7b701b8d586d9"
@@ -591,13 +583,6 @@
     semver "^7.7.2"
     tar-fs "^3.1.0"
     yargs "^17.7.2"
-
-"@qwik.dev/partytown@^0.11.0":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@qwik.dev/partytown/-/partytown-0.11.2.tgz#2f8c715912c3522b1d2e1bbf75801196ab198422"
-  integrity sha512-795y49CqBiKiwKAD+QBZlzlqEK275hVcazZ7wBPSfgC23L+vWuA7PJmMpgxojOucZHzYi5rAAQ+IP1I3BKVZxw==
-  dependencies:
-    dotenv "^16.4.7"
 
 "@rollup/plugin-node-resolve@^15.2.3":
   version "15.3.1"
@@ -1858,11 +1843,6 @@ dot-prop@^5.2.0:
   integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
   dependencies:
     is-obj "^2.0.0"
-
-dotenv@^16.4.7:
-  version "16.6.1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.6.1.tgz#773f0e69527a8315c7285d5ee73c4459d20a8020"
-  integrity sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==
 
 dset@^3.1.4:
   version "3.1.4"
