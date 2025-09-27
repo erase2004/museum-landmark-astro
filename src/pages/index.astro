@@ -1,48 +1,71 @@
 ---
 import '../styles/global.css'
-import { title, description } from '../config'
+import { title, description, gtmId } from '../config'
 import Metadata from '../components/Metadata.astro'
 import Navbar from '../components/navbar/Main.astro'
 import Gallery from '../components/gallery/Main.astro'
 import { Seo } from 'astro-seo-meta'
+
+const isProd = import.meta.env.PROD
+
 ---
 
 <html lang="zh-TW">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <Seo title={title} description={description} keywords={['ACGN', '股市', '博物館']} />
     <Metadata />
-    <!-- Google Tag Manager -->
-    <script>
-      ;(function (w, d, s, l, i) {
-        w[l] = w[l] || []
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : ''
-        j.async = true
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
-        f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', 'GTM-5672XXTG')
-    </script>
-    <!-- End Google Tag Manager -->
+    { isProd ? 
+      <Fragment>
+        <!-- for production -->
+        <script
+          is:inline
+          type="text/partytown"
+          src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}></script>
+        <script is:inline type="text/partytown">
+          window.dataLayer = window.dataLayer || []
+          window.dataLayer.push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js',
+          })
+        </script>
+      </Fragment> :
+      <Fragment>
+        <!-- for preview mode -->
+        <script is:inline define:vars={{ gtmId }}>
+          ;(function (w, d, s, l, i) {
+            w[l] = w[l] || []
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != 'dataLayer' ? '&l=' + l : ''
+            j.async = true
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+            f.parentNode.insertBefore(j, f)
+          })(window, document, 'script', 'dataLayer', gtmId)
+        </script>
+      </Fragment>
+    }
   </head>
 
   <body class="flex flex-col flex-nowrap bg-orange-800">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-5672XXTG"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"
-      >
-      </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    { !isProd && <fragment>
+      <!-- Google Tag Manager (noscript) -->
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5672XXTG"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        >
+        </iframe>
+      </noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      </fragment>
+    }
     <Navbar />
     <Gallery />
   </body>
