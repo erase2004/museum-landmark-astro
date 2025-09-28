@@ -5,6 +5,11 @@ const museumBaseUrl = 'museum.acgn-stock.com'
 const siteList: SiteList = {
   2025: [
     {
+      title: '(Θ) 2025/06/29 ~ 2025/09/28',
+      url: `https://r33-${museumBaseUrl}`,
+      disabled: false
+    },
+    {
       title: '(Η) 2025/03/30 ~ 2025/06/29',
       url: `https://r31-${museumBaseUrl}`,
       disabled: false
