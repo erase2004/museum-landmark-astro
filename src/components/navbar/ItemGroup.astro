@@ -89,7 +89,6 @@ const { year, list } = Astro.props
     activeClasses: 'bg-gray-800 text-white',
     inactiveClasses: 'text-gray-400',
     onOpen: (_, item) => {
-      console.log(item)
       const { triggerEl } = item
       triggerEl.querySelector('[data-accordion-icon]')?.classList.toggle('rotate-180')
     },

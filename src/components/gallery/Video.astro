@@ -1,40 +1,19 @@
 ---
-import type { Data } from '../../types'
+import type { ExtendedVideoBaseData } from '../../types'
 import Loading from './Loading.astro'
-import { mediaBasePath } from '../../config'
 import videoPoster from '../../assets/media/video-poster.jpg'
 
 type Props = {
-  filePath: string
-  isLatestPeriod: boolean
-  data: Data
+  data: ExtendedVideoBaseData
 }
 
-const { filePath, isLatestPeriod, data } = Astro.props
-const videos = import.meta.glob('/src/assets/media/*.{mp4,webm}')
-
-function getVideoEntries(path: string) {
-  return Object.entries(videos).filter(([key, _]) => key.includes(path))
-}
-
-const entries = getVideoEntries(filePath)
-
-if (entries.length === 0)
-  throw new Error(`"${filePath}" does not exist in glob: "${mediaBasePath}*.{mp4,webm}"`)
-
-// as { default: string } is workaround for video files
-const mp4 = (await entries
-  .filter(([key, _]) => key.endsWith('.mp4'))
-  .map(([_, file]) => file)[0]()) as { default: string }
-const webm = (await entries
-  .filter(([key, _]) => key.endsWith('.webm'))
-  .map(([_, file]) => file)[0]()) as { default: string }
-
-const customClass = isLatestPeriod ? '' : 'loading'
+const { data } = Astro.props
+const webm = data.video.webm
+const mp4 = data.video.mp4
 ---
 
 <video
-  class={`w-full ${customClass}`}
+  class={`w-full astro-video`}
   style={`background-color: ${data.color}`}
   autoplay
   muted
@@ -44,28 +23,16 @@ const customClass = isLatestPeriod ? '' : 'loading'
   poster={videoPoster.src}
   preload="none"
 >
-  {
-    isLatestPeriod ? (
-      <Fragment>
-        <source type="video/webm" src={webm.default} />
-        <source type="video/mp4" src={mp4.default} />
-      </Fragment>
-    ) : (
-      <Fragment>
-        <source type="video/webm" data-src={webm.default} />
-        <source type="video/mp4" data-src={mp4.default} />
-      </Fragment>
-    )
-  }
-
+  <source type="video/webm" src={webm} />
+  <source type="video/mp4" src={mp4} />
   <Loading />
 </video>
 
 <script>
-  import { mediaLoadedHandle } from '../../util'
+  import { mediaLoadedHandle } from '../../utils/misc'
 
   function getLazyLoadVideos() {
-    return document.querySelectorAll<HTMLVideoElement>('a.media-item > video')
+    return document.querySelectorAll<HTMLVideoElement>('a.media-item > video.astro-video')
   }
 
   function checkVideoLoadStatus() {
@@ -79,42 +46,5 @@ const customClass = isLatestPeriod ? '' : 'loading'
     }
   }
 
-  let lazyloadThrottleTimeout: number
-
-  function lazyloadVideo() {
-    if (lazyloadThrottleTimeout) {
-      window.clearTimeout(lazyloadThrottleTimeout)
-    }
-
-    lazyloadThrottleTimeout = window.setTimeout(function () {
-      const scrollTop = window.scrollY
-      let waitingVideoes: number = 0
-
-      for (const videoElement of getLazyLoadVideos()) {
-        if (videoElement.classList.contains('loading')) {
-          waitingVideoes += 1
-
-          const parent = videoElement.closest<HTMLAnchorElement>('a.media-item')
-          if (parent && parent.offsetTop < window.innerHeight + scrollTop + 700) {
-            videoElement.querySelectorAll('source').forEach((element) => {
-              element.src = element.dataset.src ?? ''
-            })
-            videoElement.classList.remove('loading')
-            setTimeout(() => videoElement.load(), 0)
-          }
-        }
-      }
-
-      if (waitingVideoes === 0) {
-        document.removeEventListener('scroll', lazyloadVideo)
-        window.removeEventListener('resize', lazyloadVideo)
-        window.removeEventListener('orientationChange', lazyloadVideo)
-      }
-    }, 20)
-  }
-
-  document.addEventListener('scroll', lazyloadVideo)
-  window.addEventListener('resize', lazyloadVideo)
-  window.addEventListener('orientationChange', lazyloadVideo)
   checkVideoLoadStatus()
 </script>

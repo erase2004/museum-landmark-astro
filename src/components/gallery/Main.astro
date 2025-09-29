@@ -1,12 +1,68 @@
 ---
-import * as dataList from '../../data/imageList'
+import type { UnresolvedImageTransform } from 'astro'
+import type { Data, VideoBaseData, ExtendedData, ExtendedVideoBaseData } from '../../types'
 import Period from './Period.astro'
+import PreactRestPart from '../preact/RestPart'
+import * as dataList from '../../data/imageList'
+import { mediaBasePath } from '../../config'
+import { getImages, getVideos } from '../../utils/media'
+import type { VideoData } from '../../types'
+
+function isVideo(data: Data): data is VideoBaseData {
+  return 'isVideo' in data && data.isVideo === true
+}
+function getVideoByExt(videoData: VideoData[], ext: string) {
+  return videoData.find(([k, _]) => k.endsWith(`.${ext}`))?.[1] ?? ''
+}
+
+const images = await getImages({ layout: 'constrained', quality: 50 } satisfies Omit<
+  UnresolvedImageTransform,
+  'src'
+>)
+const videos = getVideos()
+const reversedList = Object.entries(dataList)
+  .reverse()
+  .map(
+    ([key, list]) =>
+      [
+        key,
+        list.map((data): ExtendedData => {
+          if (isVideo(data)) {
+            const _data: ExtendedVideoBaseData['video'] = {
+              webm: '',
+              mp4: '',
+            }
+            const _key = `${mediaBasePath}/${data.name}`
+            const videosData = videos.filter(([k, _]) => k.includes(_key))
+
+            _data.webm = getVideoByExt(videosData, 'webm')
+            _data.mp4 = getVideoByExt(videosData, 'mp4')
+
+            return {
+              ...data,
+              video: _data,
+            }
+          } else {
+            const _key = `${mediaBasePath}/${data.name}.${data.ext}`
+            const _data = images.find(([k, _]) => k === _key)![1]
+
+            return {
+              ...data,
+              image: _data,
+            }
+          }
+        }),
+      ] satisfies [string, ExtendedData[]]
+  )
+const initialList = reversedList.slice(0, 1)
+const restList = reversedList.slice(1)
 ---
 
 <div class="mt-10 md:px-4">
   {
-    Object.entries(dataList)
-      .reverse()
-      .map(([period, list], index) => <Period period={period} list={list} isLatest={index === 0} />)
+    initialList.map(([period, list], index) => (
+      <Period period={period} list={list} isLatest={index === 0} />
+    ))
   }
+  <PreactRestPart client:visible client:only="preact" data={restList} />
 </div>
