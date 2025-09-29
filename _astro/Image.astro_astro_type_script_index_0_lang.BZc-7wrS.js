@@ -1,1 +1,0 @@
-import{m as a}from"./util.BDFAf4rN.js";function t(){return document.querySelectorAll("a.media-item > img")}function o(){for(const e of t())e.complete&&e.naturalHeight!==0?a.call(e):e.addEventListener("load",a)}o();
