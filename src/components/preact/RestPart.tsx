@@ -17,18 +17,21 @@ const PreactRestPart: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     let target = document.querySelector('#list-end')!
 
-    const observer = new window.IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        if (displayAmount >= totalAmount) {
-          observer.unobserve(target)
-          return
-        }
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          if (displayAmount >= totalAmount) {
+            observer.unobserve(target)
+            return
+          }
 
-        setDisplayAmount(displayAmount + step)
-      }
-    }, {
-      rootMargin: '0px 0px 1800px 0px'
-    })
+          setDisplayAmount(displayAmount + step)
+        }
+      },
+      {
+        rootMargin: '0px 0px 1800px 0px',
+      },
+    )
 
     observer.observe(target)
 
@@ -39,12 +42,10 @@ const PreactRestPart: FunctionComponent<Props> = (props) => {
 
   return (
     <Fragment>
-      {
-        displayList.map(([period, list]) => (
-          <PreactPeriod key={period} period={period} list={list} />
-        ))
-      }
-      <div id="list-end" className="w-full h-0"></div>
+      {displayList.map(([period, list]) => (
+        <PreactPeriod key={period} period={period} list={list} />
+      ))}
+      <div id="list-end" className="h-0 w-full"></div>
     </Fragment>
   )
 }

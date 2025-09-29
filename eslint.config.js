@@ -1,7 +1,9 @@
+import { defineConfig } from 'astro/config';
 import astro from 'eslint-plugin-astro';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+import prettier from 'eslint-config-prettier/flat'
 
-export default [
+export default defineConfig([
   ...astro.configs.recommended,
-  jsxA11y.flatConfigs.recommended,
-];
+  ...astro.configs['jsx-a11y-recommended'],
+  prettier
+]);

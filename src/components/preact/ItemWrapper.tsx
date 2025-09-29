@@ -2,7 +2,7 @@ import type { FunctionComponent } from 'preact/compat'
 import type { ExtendedData } from '../../types'
 import PreactVideo from './Video'
 import PreactImage from './Image'
-import { isVideo } from '../../utils/misc' 
+import { isVideo } from '../../utils/misc'
 
 type Props = {
   index: number
@@ -27,16 +27,10 @@ const PreactItemWrapper: FunctionComponent<Props> = (props) => {
       rel="noopener"
       title={data.companyName}
     >
-      <span class="absolute top-0 right-0 bg-black/50 p-1 text-xl text-white lg:text-2xl"
-        >{data.companyName}
+      <span class="absolute top-0 right-0 bg-black/50 p-1 text-xl text-white lg:text-2xl">
+        {data.companyName}
       </span>
-      {
-        isVideo(data) ? (
-          <PreactVideo data={data} />
-        ) : (
-          <PreactImage data={data} />
-        )
-      }
+      {isVideo(data) ? <PreactVideo data={data} /> : <PreactImage data={data} />}
     </a>
   )
 }

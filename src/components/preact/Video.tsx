@@ -16,7 +16,7 @@ const PreactVideo: FunctionComponent<Props> = (props) => {
   return (
     <Fragment>
       <video
-        className={`w-full preact-video`}
+        className={`preact-video w-full`}
         style={`background-color: ${data.color}`}
         autoplay
         muted

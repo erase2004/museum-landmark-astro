@@ -17,7 +17,9 @@ const PreactPeriod: FunctionComponent<Props> = (props) => {
       <div className="py-2 text-center text-xl text-gray-300">
         {Math.floor(pd / 100)} 年 {pd % 100} 期
       </div>
-      {list.map((data, index) => <PreactItemWrapper data={data} index={index} />)}
+      {list.map((data, index) => (
+        <PreactItemWrapper data={data} index={index} />
+      ))}
     </Fragment>
   )
 }

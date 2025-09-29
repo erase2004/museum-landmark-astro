@@ -1,4 +1,4 @@
-import type { Data } from "../../types"
+import type { Data } from '../../types'
 
 const baseUrl = 'https://r8-museum.acgn-stock.com/company/detail'
 
@@ -10,7 +10,7 @@ const data: Data[] = [
     width: 2899,
     height: 4219,
     color: '#9c806e',
-    url: `${baseUrl}/xrCBnWv5kvRrigPXB`
+    url: `${baseUrl}/xrCBnWv5kvRrigPXB`,
   },
   {
     name: '23',
@@ -19,7 +19,7 @@ const data: Data[] = [
     width: 930,
     height: 566,
     color: '#beb198',
-    url: `${baseUrl}/DaMb9gDH4WEbDiRBu`
+    url: `${baseUrl}/DaMb9gDH4WEbDiRBu`,
   },
   {
     name: '24',
@@ -28,8 +28,8 @@ const data: Data[] = [
     width: 908,
     height: 908,
     color: '#949192',
-    url: `${baseUrl}/8SRJG4sz8zHukaQk2`
-  }
+    url: `${baseUrl}/8SRJG4sz8zHukaQk2`,
+  },
 ]
 
 export default data
