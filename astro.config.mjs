@@ -8,6 +8,8 @@ import { siteUrl, title } from './src/config';
 
 import partytown from '@astrojs/partytown';
 
+import preact from '@astrojs/preact';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -16,34 +18,37 @@ export default defineConfig({
   site: siteUrl,
   image: {
     responsiveStyles: true,
-	},
+  },
   integrations: [
-		favicons({
-			input: {
-				favicons: [
-					"src/assets/icons/logo.png"
-				]
-			},
-			name: title,
-			short_name: 'Museum Landmark',
-			icons: {
-				favicons: true,
-				android: true,
-				appleIcon: true,
-				appleStartup: true,
-				windows: true,
-				yandex: false
-			},
-			output: {
-				images: true,
-				files: true,
-				html: true,
-			},
-		}),
-		partytown({
-			config: {
-				forward: ['dataLayer.push', 'gtag']
-			}
-		})
-	]
+    favicons({
+      input: {
+        favicons: [
+          "src/assets/icons/logo.png"
+        ]
+      },
+      name: title,
+      short_name: 'Museum Landmark',
+      icons: {
+        favicons: true,
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        windows: true,
+        yandex: false
+      },
+      output: {
+        images: true,
+        files: true,
+        html: true,
+      },
+    }),
+    partytown({
+      config: {
+        forward: ['dataLayer.push', 'gtag']
+      }
+    }),
+    preact({
+      compat: true
+    })
+  ]
 });

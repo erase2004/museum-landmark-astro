@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.6",
     "@astrojs/partytown": "^2.1.4",
+    "@astrojs/preact": "^4.1.1",
     "@tailwindcss/vite": "^4.1.13",
     "@types/canvas-confetti": "^1.9.0",
     "astro": "^5.13.11",
@@ -20,6 +21,7 @@
     "astro-seo-meta": "^5.2.0",
     "canvas-confetti": "^1.9.3",
     "flowbite": "^3.1.2",
+    "preact": "^10.27.2",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
