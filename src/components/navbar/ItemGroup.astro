@@ -15,9 +15,9 @@ const { year, list } = Astro.props
   <div id="accordion-container" class="block md:hidden">
     <button
       type="button"
-      class="accordion-header GTM-toggle-item"
+      class="accordion-header GTM-toggle-item [&[aria-expanded=true]>svg]:rotate-180"
       data-accordion-target={`#accordion-collapse-body-${year}`}
-      aria-expanded="true"
+      aria-expanded="false"
       aria-controls={`accordion-collapse-body-${year}`}
     >
       <span>{year}</span>
@@ -78,7 +78,7 @@ const { year, list } = Astro.props
   const accordionItems: AccordionItem[] = Object.keys(siteList).map((year) => ({
     id: `accordion-${year}`,
     triggerEl: document.querySelector<HTMLElement>(
-      `[data-accordion-target="#accordion-collapse-body-${year}"]`
+      `[data-accordion-target="#accordion-collapse-body-${year}"]`,
     )!,
     targetEl: document.querySelector<HTMLElement>(`#accordion-collapse-body-${year}`)!,
     active: false,
@@ -88,14 +88,8 @@ const { year, list } = Astro.props
     alwaysOpen: false,
     activeClasses: 'bg-gray-800 text-white',
     inactiveClasses: 'text-gray-400',
-    onOpen: (_, item) => {
-      const { triggerEl } = item
-      triggerEl.querySelector('[data-accordion-icon]')?.classList.toggle('rotate-180')
-    },
-    onClose: (_, item) => {
-      const { triggerEl } = item
-      triggerEl.querySelector('[data-accordion-icon]')?.classList.toggle('rotate-180')
-    },
+    onOpen: (_, item) => {},
+    onClose: (_, item) => {},
     onToggle: (_, item) => {},
   }
 
