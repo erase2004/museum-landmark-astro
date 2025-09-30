@@ -1,0 +1,1 @@
+import{m as a}from"./misc.BvZJ91Ts.js";function t(){return document.querySelectorAll("a.media-item > img.astro-image")}function o(){for(const e of t())e.complete&&e.naturalHeight!==0?a.call(e):e.addEventListener("load",a)}o();

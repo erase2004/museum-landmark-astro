@@ -1,0 +1,1 @@
+function i(){this.parentNode?.querySelector(".loading-effect")?.remove()}function r(e){return"isVideo"in e&&e.isVideo===!0}function t(e){return e===0?" border-yellow-500 GTM-first-item":e===1?"border-neutral-500 GTM-second-item":"border-lime-800 GTM-third-item"}export{t as g,r as i,i as m};
