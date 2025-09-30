@@ -3,7 +3,7 @@ import type { ExtendedData } from '../../types'
 import { mediaBasePath } from '../../config'
 import Image from './Image.astro'
 import Video from './Video.astro'
-import { isVideo } from '../../utils/misc'
+import { getWrappingStyles, isVideo } from '../../utils/misc'
 
 type Props = {
   isLatestPeriod: boolean
@@ -13,22 +13,17 @@ type Props = {
 
 const { isLatestPeriod, index, data } = Astro.props
 
-const customClasses =
-  index === 0
-    ? ' border-yellow-500 GTM-first-item'
-    : index === 1
-      ? 'border-neutral-500 GTM-second-item'
-      : 'border-lime-800 GTM-third-item'
+const wrappingStyles = getWrappingStyles(index)
 ---
 
 <a
-  class={`media-item loading relative block rounded-md border-8 border-solid ${customClasses}`}
+  class={`media-item ${wrappingStyles}`}
   href={data.url}
   target="_blank"
   rel="noopener"
   title={data.companyName}
 >
-  <span class="absolute top-0 right-0 bg-black/50 p-1 text-xl text-white lg:text-2xl">
+  <span class="item-title">
     {data.companyName}
   </span>
   {isVideo(data) ? <Video data={data} /> : <Image isLatestPeriod={isLatestPeriod} data={data} />}

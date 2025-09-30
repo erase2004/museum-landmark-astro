@@ -3,6 +3,7 @@ import '../styles/global.css'
 import { title, description, gtmId } from '../config'
 import Metadata from '../components/Metadata.astro'
 import Navbar from '../components/navbar/Main.astro'
+import Sidebar from '../components/navbar/Sidebar.astro'
 import Gallery from '../components/gallery/Main.astro'
 import { Seo } from 'astro-seo-meta'
 
@@ -10,7 +11,7 @@ const isProd = import.meta.env.PROD
 
 ---
 
-<html lang="zh-TW">
+<html lang="zh-TW" data-theme="night">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,12 +52,12 @@ const isProd = import.meta.env.PROD
     }
   </head>
 
-  <body class="flex flex-col flex-nowrap bg-orange-800">
-    { !isProd && <fragment>
+  <body class="bg-base-100">
+    { !isProd && <Fragment>
       <!-- Google Tag Manager (noscript) -->
       <noscript>
         <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-5672XXTG"
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
           height="0"
           width="0"
           style="display:none;visibility:hidden"
@@ -64,9 +65,17 @@ const isProd = import.meta.env.PROD
         </iframe>
       </noscript>
       <!-- End Google Tag Manager (noscript) -->
-      </fragment>
+      </Fragment>
     }
-    <Navbar />
-    <Gallery />
+    <div class="drawer drawer-end">
+      <input id="drawer-toggle" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <Navbar />
+        <Gallery />
+      </div>
+      <div class="drawer-side">
+        <Sidebar />
+      </div>
+    </div>
   </body>
 </html>

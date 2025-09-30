@@ -12,7 +12,7 @@ const { period, list, isLatest } = Astro.props
 const pd = Number(period)
 ---
 
-<div class="py-2 text-center text-xl text-gray-300">
+<div class="period-title">
   {Math.floor(pd / 100)} 年 {pd % 100} 期
 </div>
 {list.map((data, index) => <ItemWrapper isLatestPeriod={isLatest} data={data} index={index} />)}

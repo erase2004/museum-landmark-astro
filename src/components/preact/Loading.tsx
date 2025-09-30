@@ -9,7 +9,7 @@ const PreactLoading: FunctionComponent = () => {
       <div className="shadow"></div>
       <div className="shadow"></div>
       <div className="shadow"></div>
-      <span className="text-shadow-gray-800 text-shadow-md">影像載入中</span>
+      <span className="text">影像載入中</span>
     </div>
   )
 }

@@ -1,0 +1,19 @@
+---
+import type { SiteList } from '../../types'
+import AccordionItem from './AccordionItem.astro'
+
+type Props = {
+  year: keyof SiteList
+  list: SiteList[keyof SiteList]
+}
+
+const { year, list } = Astro.props
+---
+
+<div class="collapse-arrow collapse">
+  <input type="radio" name="sidebar-accordion" aria-labelledby={`accordion-title-${year}`} />
+  <div class="collapse-title text-primary-content" id={`accordion-title-${year}`}>{year}</div>
+  <ul class="collapse-content space-y-0.5 text-sm">
+    {list.map((site) => <AccordionItem site={site} />)}
+  </ul>
+</div>

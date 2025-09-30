@@ -11,11 +11,11 @@ const { site } = Astro.props
 <li>
   {
     site.disabled ? (
-      <a href="#" class="dropdown-link link-disabled" rel="noopener" onclick="return false">
+      <a href="#" class="accordion-item link-disabled" rel="noopener" onclick="return false">
         {site.title}
       </a>
     ) : (
-      <a href={site.url} class="dropdown-link GTM-site-link" target="_blank" rel="noopener">
+      <a href={site.url} class="accordion-item GTM-site-link" target="_blank" rel="noopener">
         {site.title}
       </a>
     )

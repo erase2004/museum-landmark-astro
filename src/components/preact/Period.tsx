@@ -14,7 +14,7 @@ const PreactPeriod: FunctionComponent<Props> = (props) => {
 
   return (
     <Fragment>
-      <div className="py-2 text-center text-xl text-gray-300">
+      <div className="period-title">
         {Math.floor(pd / 100)} 年 {pd % 100} 期
       </div>
       {list.map((data, index) => (

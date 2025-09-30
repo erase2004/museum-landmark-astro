@@ -1,0 +1,24 @@
+---
+import type { SiteList } from '../../types'
+import DropdownItem from './DropdownItem.astro'
+
+type Props = {
+  year: keyof SiteList
+  list: SiteList[keyof SiteList]
+}
+
+const { year, list } = Astro.props
+---
+
+<li class="dropdown dropdown-end dropdown-bottom">
+  <div
+    tabindex="0"
+    role="button"
+    class="menu-dropdown-toggle btn rounded-field text-primary-content btn-ghost"
+  >
+    {year}
+  </div>
+  <ul class="dropdown-content z-1 rounded-box bg-base-300 shadow-sm">
+    {list.map((site) => <DropdownItem site={site} />)}
+  </ul>
+</li>

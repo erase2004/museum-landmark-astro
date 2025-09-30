@@ -1,0 +1,13 @@
+---
+import siteList from '../../data/siteList'
+import Accordion from './Accordion.astro'
+---
+
+<label for="drawer-toggle" aria-label="close sidebar" class="drawer-overlay"></label>
+<div class="menu min-h-full bg-base-200">
+  {
+    Object.entries(siteList)
+      .reverse()
+      .map(([year, list]) => <Accordion year={Number(year)} list={list} />)
+  }
+</div>

@@ -52,13 +52,13 @@ const reversedList = Object.entries(dataList)
             }
           }
         }),
-      ] satisfies [string, ExtendedData[]]
+      ] satisfies [string, ExtendedData[]],
   )
 const initialList = reversedList.slice(0, 1)
 const restList = reversedList.slice(1)
 ---
 
-<div class="mt-10 md:px-4">
+<div class="mt-14 md:mt-[148px] md:px-4 xl:mt-18">
   {
     initialList.map(([period, list], index) => (
       <Period period={period} list={list} isLatest={index === 0} />

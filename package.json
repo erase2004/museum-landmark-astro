@@ -21,7 +21,6 @@
     "astro-favicons": "^3.1.5",
     "astro-seo-meta": "^5.2.0",
     "canvas-confetti": "^1.9.3",
-    "flowbite": "^3.1.2",
     "preact": "^10.27.2",
     "tailwindcss": "^4.1.13"
   },
@@ -30,6 +29,7 @@
     "@lhci/cli": "^0.15.1",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
+    "daisyui": "^5.1.25",
     "eslint": "^9.36.0",
     "eslint-config-preact": "^2.0.0",
     "eslint-config-prettier": "^10.1.8",
