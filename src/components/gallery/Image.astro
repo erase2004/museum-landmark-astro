@@ -23,11 +23,12 @@ if (data.ext === 'gif') {
 ---
 
 <picture>
-  <source srcset={webp.srcSet.attribute} type="image/webp" />
+  <source srcset={webp.srcSet.attribute} type="image/webp" sizes="98vw" />
   <img
     class="astro-image h-auto w-full"
     src={imgSrc}
     srcset={imgSrcSet}
+    sizes="98vw"
     alt={data.companyName}
     style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
     loading={isLatestPeriod ? 'eager' : 'lazy'}

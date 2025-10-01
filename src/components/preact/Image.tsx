@@ -41,11 +41,12 @@ const PreactImage: FunctionComponent<Props> = (props) => {
   return (
     <Fragment>
       <picture>
-        <source srcset={webp.srcSet.attribute} type="image/webp" />
+        <source srcset={webp.srcSet.attribute} type="image/webp" sizes="98vw" />
         <img
           ref={imgRef}
           src={imgSrc}
           srcSet={imgSrcSet}
+          sizes="98vw"
           alt={data.companyName}
           className="preact-image h-auto w-full"
           style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
