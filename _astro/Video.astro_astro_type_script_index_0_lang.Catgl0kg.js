@@ -1,0 +1,1 @@
+import{m as o}from"./misc.u8Vq1JOk.js";function t(){return document.querySelectorAll("a.media-item > video.astro-video")}function a(){for(const e of t())e.readyState===4?o.call(e):e.addEventListener("canplaythrough",o)}a();
