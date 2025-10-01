@@ -1,6 +1,12 @@
 ---
 import type { UnresolvedImageTransform } from 'astro'
-import type { Data, VideoBaseData, ExtendedData, ExtendedVideoBaseData } from '../../types'
+import type {
+  Data,
+  VideoBaseData,
+  ExtendedData,
+  ExtendedVideoBaseData,
+  ExtendedImageBaseData,
+} from '../../types'
 import Period from './Period.astro'
 import PreactRestPart from '../preact/RestPart'
 import * as dataList from '../../data/imageList'
@@ -15,11 +21,28 @@ function getVideoByExt(videoData: VideoData[], ext: string) {
   return videoData.find(([k, _]) => k.endsWith(`.${ext}`))?.[1] ?? ''
 }
 
-const images = await getImages({ layout: 'constrained', quality: 50 } satisfies Omit<
-  UnresolvedImageTransform,
-  'src'
->)
+const webpImages = await getImages({
+  layout: 'constrained',
+  quality: 50,
+  format: 'webp',
+} satisfies Omit<UnresolvedImageTransform, 'src'>)
+const jpegImages = await getImages({
+  layout: 'constrained',
+  quality: 50,
+  format: 'jpeg',
+} satisfies Omit<UnresolvedImageTransform, 'src'>)
+const gifImages = await getImages({
+  layout: 'constrained',
+  quality: 50,
+  format: 'gif',
+} satisfies Omit<UnresolvedImageTransform, 'src'>)
+
 const videos = getVideos()
+
+function getDataByKey<T extends [string, any]>(data: T[], key: string): T[] {
+  return data.filter(([k, _]) => k.includes(key))
+}
+
 const reversedList = Object.entries(dataList)
   .reverse()
   .map(
@@ -27,13 +50,14 @@ const reversedList = Object.entries(dataList)
       [
         key,
         list.map((data): ExtendedData => {
+          const _key = `${mediaBasePath}/${data.name}`
+
           if (isVideo(data)) {
             const _data: ExtendedVideoBaseData['video'] = {
               webm: '',
               mp4: '',
             }
-            const _key = `${mediaBasePath}/${data.name}`
-            const videosData = videos.filter(([k, _]) => k.includes(_key))
+            const videosData = getDataByKey(videos, _key)
 
             _data.webm = getVideoByExt(videosData, 'webm')
             _data.mp4 = getVideoByExt(videosData, 'mp4')
@@ -43,8 +67,12 @@ const reversedList = Object.entries(dataList)
               video: _data,
             }
           } else {
-            const _key = `${mediaBasePath}/${data.name}.${data.ext}`
-            const _data = images.find(([k, _]) => k === _key)![1]
+            const _data: ExtendedImageBaseData['image'] = {
+              webp: getDataByKey(webpImages, _key)[0]![1],
+            }
+
+            if (data.ext === 'gif') _data.gif = getDataByKey(gifImages, _key)[0]![1]
+            else _data.jpeg = getDataByKey(jpegImages, _key)[0]![1]
 
             return {
               ...data,

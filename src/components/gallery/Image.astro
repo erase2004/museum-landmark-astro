@@ -1,4 +1,5 @@
 ---
+import type { ImgHTMLAttributes } from 'preact'
 import type { ExtendedImageBaseData } from '../../types'
 import Loading from './Loading.astro'
 
@@ -8,25 +9,39 @@ type Props = {
 }
 
 const { isLatestPeriod, data } = Astro.props
+const { webp, jpeg, gif } = data.image
+
+let imgSrc: ImgHTMLAttributes['src']
+let imgSrcSet: ImgHTMLAttributes['srcSet']
+if (data.ext === 'gif') {
+  imgSrc = gif?.src
+  imgSrcSet = gif?.srcSet.attribute
+} else {
+  imgSrc = jpeg?.src
+  imgSrcSet = jpeg?.srcSet.attribute
+}
 ---
 
-<img
-  src={data.image.src}
-  srcset={data.image.srcSet.attribute}
-  alt={data.companyName}
-  class="astro-image"
-  style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
-  loading={isLatestPeriod ? 'eager' : 'lazy'}
-  decoding={isLatestPeriod ? 'sync' : 'async'}
-  fetchpriority={isLatestPeriod ? 'high' : 'auto'}
-/>
+<picture>
+  <source srcset={webp.srcSet.attribute} type="image/webp" />
+  <img
+    class="astro-image"
+    src={imgSrc}
+    srcset={imgSrcSet}
+    alt={data.companyName}
+    style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
+    loading={isLatestPeriod ? 'eager' : 'lazy'}
+    decoding={isLatestPeriod ? 'sync' : 'async'}
+    fetchpriority={isLatestPeriod ? 'high' : 'auto'}
+  />
+</picture>
 <Loading />
 
 <script>
   import { mediaLoadedHandle } from '../../utils/misc'
 
   function getLazyLoadImages() {
-    return document.querySelectorAll<HTMLImageElement>('a.media-item > img.astro-image')
+    return document.querySelectorAll<HTMLImageElement>('a.media-item img.astro-image')
   }
 
   function checkImageLoadStatus() {

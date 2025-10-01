@@ -42,7 +42,7 @@
     @apply w-full;
   }
 
-  .media-item > img {
+  .media-item img.astro-image {
     @apply h-auto w-full;
   }
 

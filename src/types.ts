@@ -39,7 +39,11 @@ export type VideoBaseData = BaseData & {
 export type Data = ImageBaseData | VideoBaseData
 
 export type ExtendedImageBaseData = ImageBaseData & {
-  image: ImageData[1]
+  image: {
+    webp: ImageData[1]
+    jpeg?: ImageData[1]
+    gif?: ImageData[1]
+  }
 }
 
 export type ExtendedVideoBaseData = VideoBaseData & {
