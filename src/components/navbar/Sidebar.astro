@@ -6,6 +6,13 @@ import Accordion from './Accordion.astro'
 <label id="drawer-closer" for="drawer-toggle" aria-label="close sidebar" class="drawer-overlay"
 ></label>
 <div class="menu min-h-full bg-base-200">
+  <label
+    for="drawer-toggle"
+    aria-label="close sidebar"
+    class="btn-default btn btn-circle self-end btn-sm"
+  >
+    ✕
+  </label>
   {
     Object.entries(siteList)
       .reverse()
