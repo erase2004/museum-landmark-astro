@@ -47,7 +47,7 @@ const PreactImage: FunctionComponent<Props> = (props) => {
           src={imgSrc}
           srcSet={imgSrcSet}
           alt={data.companyName}
-          className="preact-image"
+          className="preact-image h-auto w-full"
           style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
           loading={'lazy'}
           fetchPriority={'auto'}

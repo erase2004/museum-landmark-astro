@@ -42,10 +42,6 @@
     @apply w-full;
   }
 
-  .media-item img.astro-image {
-    @apply h-auto w-full;
-  }
-
   .media-item .loading-effect {
     width: 200px;
     height: 60px;
