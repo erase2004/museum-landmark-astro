@@ -1,4 +1,4 @@
-import { useState, Fragment, type FunctionComponent } from 'preact/compat'
+import { useState, Fragment, type FunctionComponent, useEffect, useRef } from 'preact/compat'
 import type { ExtendedImageBaseData } from '../../types'
 import PreactLoading from './Loading'
 import type { ImgHTMLAttributes } from 'preact'
@@ -8,6 +8,7 @@ type Props = {
 }
 
 const PreactImage: FunctionComponent<Props> = (props) => {
+  const imgRef = useRef<HTMLImageElement>(null)
   const { data } = props
   const { webp, jpeg, gif } = data.image
 
@@ -23,11 +24,26 @@ const PreactImage: FunctionComponent<Props> = (props) => {
 
   const [isLoaded, setIsLoaded] = useState(false)
 
+  // workaround: image loaded earily than script evaluation will cause onLoad event not be fired
+  useEffect(() => {
+    const task: number = window.setInterval(() => {
+      if (isLoaded === false && imgRef.current && imgRef.current.complete) {
+        window.clearInterval(task)
+        setIsLoaded(true)
+      }
+    }, 250)
+
+    return () => {
+      window.clearInterval(task)
+    }
+  }, [])
+
   return (
     <Fragment>
       <picture>
         <source srcset={webp.srcSet.attribute} type="image/webp" />
         <img
+          ref={imgRef}
           src={imgSrc}
           srcSet={imgSrcSet}
           alt={data.companyName}
