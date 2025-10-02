@@ -1,6 +1,5 @@
 ---
 import type { ExtendedData } from '../../types'
-import { mediaBasePath } from '../../config'
 import Image from './Image.astro'
 import Video from './Video.astro'
 import { getWrappingStyles, isVideo } from '../../utils/misc'
@@ -26,5 +25,11 @@ const wrappingStyles = getWrappingStyles(index)
   <span class="item-title">
     {data.companyName}
   </span>
-  {isVideo(data) ? <Video data={data} /> : <Image isLatestPeriod={isLatestPeriod} data={data} />}
+  {
+    isVideo(data) ? (
+      <Video data={data} />
+    ) : (
+      <Image isLatestPeriod={isLatestPeriod} data={data} index={index} />
+    )
+  }
 </a>

@@ -3,12 +3,17 @@ import type { ExtendedImageBaseData } from '../../types'
 import Loading from './Loading.astro'
 
 type Props = {
+  index: number
   isLatestPeriod: boolean
   data: ExtendedImageBaseData
 }
 
-const { isLatestPeriod, data } = Astro.props
+const { isLatestPeriod, data, index } = Astro.props
 const { webp, jpeg } = data.image
+const isPrioritized =
+  isLatestPeriod &&
+  // second one is the LCP element
+  [1].includes(index)
 ---
 
 <picture>
@@ -20,9 +25,9 @@ const { webp, jpeg } = data.image
     sizes="98vw"
     alt={data.companyName}
     style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}
-    loading={isLatestPeriod ? 'eager' : 'lazy'}
-    decoding={isLatestPeriod ? 'sync' : 'async'}
-    fetchpriority={isLatestPeriod ? 'high' : 'auto'}
+    loading={isPrioritized ? 'eager' : 'lazy'}
+    decoding={isPrioritized ? 'sync' : 'async'}
+    fetchpriority={isPrioritized ? 'high' : 'auto'}
   />
 </picture>
 <Loading />

@@ -11,7 +11,7 @@ const PreactRestPart: FunctionComponent<Props> = (props) => {
 
   const totalAmount = data.length
   const step = 2
-  const [displayAmount, setDisplayAmount] = useState(1)
+  const [displayAmount, setDisplayAmount] = useState(0)
   const displayList = data.slice(0, displayAmount)
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const PreactRestPart: FunctionComponent<Props> = (props) => {
       {displayList.map(([period, list]) => (
         <PreactPeriod key={period} period={period} list={list} />
       ))}
-      <div id="list-end" className="h-0 w-full"></div>
+      <div id="list-end" className="h-10 w-full"></div>
     </Fragment>
   )
 }
