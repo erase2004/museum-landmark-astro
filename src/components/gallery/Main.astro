@@ -21,16 +21,21 @@ function getVideoByExt(videoData: VideoData[], ext: string) {
   return videoData.find(([k, _]) => k.endsWith(`.${ext}`))?.[1] ?? ''
 }
 
+const widths = [640, 750, 828, 960, 1080, 1280, 1668, 1920]
+
 const webpImages = await getImages({
-  layout: 'constrained',
   quality: 50,
   format: 'webp',
+  width: 1920,
+  widths,
 } satisfies Omit<UnresolvedImageTransform, 'src'>)
 const jpegImages = await getImages({
-  layout: 'constrained',
   quality: 50,
   format: 'jpeg',
+  width: 1920,
+  widths,
 } satisfies Omit<UnresolvedImageTransform, 'src'>)
+
 const gifImages = await getImages({
   layout: 'constrained',
   quality: 50,

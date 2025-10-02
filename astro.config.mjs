@@ -17,6 +17,10 @@ export default defineConfig({
   },
   site: siteUrl,
   image: {
+    service: {
+      entrypoint: './src/utils/custom-sharp-service',
+      config: {}
+    },
     responsiveStyles: true,
   },
   integrations: [
