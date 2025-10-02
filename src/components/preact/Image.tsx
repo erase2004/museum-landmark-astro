@@ -1,7 +1,6 @@
 import { useState, Fragment, type FunctionComponent, useEffect, useRef } from 'preact/compat'
 import type { ExtendedImageBaseData } from '../../types'
 import PreactLoading from './Loading'
-import type { ImgHTMLAttributes } from 'preact'
 
 type Props = {
   data: ExtendedImageBaseData
@@ -10,17 +9,7 @@ type Props = {
 const PreactImage: FunctionComponent<Props> = (props) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const { data } = props
-  const { webp, jpeg, gif } = data.image
-
-  let imgSrc: ImgHTMLAttributes['src']
-  let imgSrcSet: ImgHTMLAttributes['srcSet']
-  if (data.ext === 'gif') {
-    imgSrc = gif?.src
-    imgSrcSet = gif?.srcSet.attribute
-  } else {
-    imgSrc = jpeg?.src
-    imgSrcSet = jpeg?.srcSet.attribute
-  }
+  const { webp, jpeg } = data.image
 
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -44,8 +33,8 @@ const PreactImage: FunctionComponent<Props> = (props) => {
         <source srcset={webp.srcSet.attribute} type="image/webp" sizes="98vw" />
         <img
           ref={imgRef}
-          src={imgSrc}
-          srcSet={imgSrcSet}
+          src={jpeg.src}
+          srcSet={jpeg.srcSet.attribute}
           sizes="98vw"
           alt={data.companyName}
           className="preact-image h-auto w-full"

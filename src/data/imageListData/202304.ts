@@ -5,12 +5,13 @@ const baseUrl = 'https://r25-museum.acgn-stock.com/company/detail'
 const data: Data[] = [
   {
     name: '73',
-    ext: 'gif',
+    ext: 'mp4',
     companyName: '芙莉蓮',
     width: 640,
     height: 360,
     color: '#929485',
     url: `${baseUrl}/rKTAGC4TwcSMAPgih`,
+    isVideo: true,
   },
   {
     name: '74',

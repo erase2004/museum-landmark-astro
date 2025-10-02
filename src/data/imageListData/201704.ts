@@ -14,12 +14,13 @@ const data: Data[] = [
   },
   {
     name: '02',
-    ext: 'gif',
+    ext: 'mp4',
     companyName: '千石撫子',
     width: 480,
     height: 224,
     color: '#e4d9d7',
     url: `${baseUrl}/udTtLazdpF5HAHA39`,
+    isVideo: true,
   },
   {
     name: '03',

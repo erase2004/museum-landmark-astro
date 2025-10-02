@@ -14,12 +14,13 @@ const data: Data[] = [
   },
   {
     name: '77',
-    ext: 'gif',
+    ext: 'mp4',
     companyName: '雷姆',
     width: 724,
     height: 584,
     color: '#fceec9',
     url: `${baseUrl}/rP9vCkshhf4KoxKEW`,
+    isVideo: true,
   },
   {
     name: '78',

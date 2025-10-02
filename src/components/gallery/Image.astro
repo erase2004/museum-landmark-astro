@@ -1,5 +1,4 @@
 ---
-import type { ImgHTMLAttributes } from 'preact'
 import type { ExtendedImageBaseData } from '../../types'
 import Loading from './Loading.astro'
 
@@ -9,25 +8,15 @@ type Props = {
 }
 
 const { isLatestPeriod, data } = Astro.props
-const { webp, jpeg, gif } = data.image
-
-let imgSrc: ImgHTMLAttributes['src']
-let imgSrcSet: ImgHTMLAttributes['srcSet']
-if (data.ext === 'gif') {
-  imgSrc = gif?.src
-  imgSrcSet = gif?.srcSet.attribute
-} else {
-  imgSrc = jpeg?.src
-  imgSrcSet = jpeg?.srcSet.attribute
-}
+const { webp, jpeg } = data.image
 ---
 
 <picture>
   <source srcset={webp.srcSet.attribute} type="image/webp" sizes="98vw" />
   <img
     class="astro-image h-auto w-full"
-    src={imgSrc}
-    srcset={imgSrcSet}
+    src={jpeg.src}
+    srcset={jpeg.srcSet.attribute}
     sizes="98vw"
     alt={data.companyName}
     style={`aspect-ratio: ${data.width} / ${data.height}; background-color: ${data.color};`}

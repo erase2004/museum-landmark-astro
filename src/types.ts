@@ -22,7 +22,7 @@ export type VideoData = [string, string]
 
 type BaseData = {
   name: string
-  ext: 'jpg' | 'jpeg' | 'png' | 'gif' | 'mp4'
+  ext: 'jpg' | 'jpeg' | 'png' | 'mp4'
   companyName: string
   width: number
   height: number
@@ -41,8 +41,7 @@ export type Data = ImageBaseData | VideoBaseData
 export type ExtendedImageBaseData = ImageBaseData & {
   image: {
     webp: ImageData[1]
-    jpeg?: ImageData[1]
-    gif?: ImageData[1]
+    jpeg: ImageData[1]
   }
 }
 

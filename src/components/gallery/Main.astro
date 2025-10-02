@@ -36,12 +36,6 @@ const jpegImages = await getImages({
   widths,
 } satisfies Omit<UnresolvedImageTransform, 'src'>)
 
-const gifImages = await getImages({
-  layout: 'constrained',
-  quality: 50,
-  format: 'gif',
-} satisfies Omit<UnresolvedImageTransform, 'src'>)
-
 const videos = getVideos()
 
 function getDataByKey<T extends [string, any]>(data: T[], key: string): T[] {
@@ -72,16 +66,12 @@ const reversedList = Object.entries(dataList)
               video: _data,
             }
           } else {
-            const _data: ExtendedImageBaseData['image'] = {
-              webp: getDataByKey(webpImages, _key)[0]![1],
-            }
-
-            if (data.ext === 'gif') _data.gif = getDataByKey(gifImages, _key)[0]![1]
-            else _data.jpeg = getDataByKey(jpegImages, _key)[0]![1]
-
             return {
               ...data,
-              image: _data,
+              image: {
+                webp: getDataByKey(webpImages, _key)[0]![1],
+                jpeg: getDataByKey(jpegImages, _key)[0]![1],
+              },
             }
           }
         }),
