@@ -16,6 +16,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: siteUrl,
+  cacheDir: './assets-cache',
   image: {
     service: {
       entrypoint: './src/utils/custom-sharp-service',

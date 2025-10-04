@@ -13,21 +13,48 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install dependencies and build
+
+      - name: Get yarn cache directory path
+        run: echo "STORE_PATH=$(yarn cache dir)" >> $GITHUB_ENV
+        
+      - uses: actions/cache@v4
+        name: Setup yarn cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-yarn-store-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-store-
+
+      - name: Cache Astro build artifects
+        uses: actions/cache@v4
+        with:
+          # Astro cacheDir Path
+          path: ./assets-cache
+          # Detects whether the image in this path has changed
+          key: ${{ runner.os }}-astro-cache-${{ hashFiles('src/assets/media/**') }}
+          restore-keys: |
+            ${{ runner.os }}-astro-cache-
+
+      - name: Install dependencies
         run: |
-          yarn install
-          yarn build
           yarn global add @lhci/cli@0.15.x
+          yarn install
+      
+      - name: Build
+        run: yarn build
+
       - name: Run Lighthouse CI (mobile)
         run: |
           lhci autorun --config=./lighthouserc-mobile.yml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       - name: Run Lighthouse CI (desktop)
         run: |
           lhci autorun --config=./lighthouserc-desktop.yml
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       - name: Create artifact
         uses: actions/upload-artifact@v4
         with:
