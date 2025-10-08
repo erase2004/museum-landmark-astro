@@ -15,7 +15,7 @@ const PreactRestPart: FunctionComponent<Props> = (props) => {
   const displayList = data.slice(0, displayAmount)
 
   useEffect(() => {
-    let target = document.querySelector('#list-end')!
+    const target = document.querySelector('#list-end')!
 
     const observer = new window.IntersectionObserver(
       (entries) => {
