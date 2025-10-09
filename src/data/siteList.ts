@@ -6,7 +6,7 @@ const siteList: SiteList = {
   2025: [
     {
       title: '(Θ) 2025/06/29 ~ 2025/09/28',
-      url: `https://r33-${museumBaseUrl}`,
+      url: `https://r32-${museumBaseUrl}`,
       disabled: false,
     },
     {
