@@ -1,5 +1,13 @@
 # Museum Landmark (rewritten in Astro)
+**This repository has been officially archived and is no longer actively maintained.**
+
 Landmark page for the Museums of [ACGN Stock](https://acgn-stock.com/)
+
+- - -
+
+## Successor Project
+
+* [acgn-stock-museum](https://github.com/erase2004/acgn-stock-museum/)
 
 - - -
 
